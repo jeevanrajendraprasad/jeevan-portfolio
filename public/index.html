@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Rajendra Prasad - Data Engineer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151932;
+            --bg-card: #1e2338;
+            --accent: #00d4ff;
+            --accent-glow: rgba(0, 212, 255, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-illustration {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-illustration svg {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0, 212, 255, 0.3));
+        }
+
+        .sparkle {
+            animation: sparkleAnimation 2s ease-in-out infinite;
+        }
+
+        .success-badge {
+            animation: bounceIn 1s ease-out;
+        }
+
+        .celebration-text {
+            animation: celebrationPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkleAnimation {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes celebrationPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-5px);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .hero .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .certifications-banner {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .certifications-banner h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .cert-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .cert-item h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-category li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .project-header {
+            background: var(--gradient);
+            padding: 1.5rem;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-highlight {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent);
+        }
+
+        .project-highlight strong {
+            color: var(--accent);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient);
+        }
+
+        .experience-item {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .experience-item h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .company {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-item .date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .experience-item li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .experience-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .education-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-card .degree {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-card .date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero .cta-buttons {
+                flex-direction: column;
+            }
+
+            .experience-timeline {
+                padding-left: 1.5rem;
+            }
+
+            .experience-item::before {
+                left: -2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="container">
+            <div class="logo">Jeevan Rajendra Prasad</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-illustration">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Laptop -->
+                    <rect x="80" y="120" width="240" height="140" rx="8" fill="#1e2338" stroke="#00d4ff" stroke-width="2"/>
+                    <rect x="90" y="130" width="220" height="115" fill="#0a0e27"/>
+                    
+                    <!-- Code on screen -->
+                    <text x="100" y="150" fill="#00d4ff" font-family="monospace" font-size="10">
+                        <tspan x="100" dy="0">def migrate_data():</tspan>
+                        <tspan x="100" dy="15">  conn = get_connection()</tspan>
+                        <tspan x="100" dy="15">  data = extract_data()</tspan>
+                        <tspan x="100" dy="15">  transform(data)</tspan>
+                        <tspan x="100" dy="15">  load_to_snowflake()</tspan>
+                        <tspan x="100" dy="15" fill="#4ade80">  # Success! ✓</tspan>
+                    </text>
+                    
+                    <!-- Laptop base -->
+                    <path d="M 60 260 L 340 260 L 350 275 L 50 275 Z" fill="#1e2338" stroke="#00d4ff" stroke-width="2"/>
+                    
+                    <!-- Celebration sparkles -->
+                    <g class="sparkle">
+                        <circle cx="340" cy="100" r="3" fill="#fbbf24" opacity="0.8"/>
+                        <circle cx="355" cy="110" r="2" fill="#fbbf24" opacity="0.6"/>
+                        <circle cx="350" cy="85" r="2.5" fill="#fbbf24" opacity="0.7"/>
+                    </g>
+                    
+                    <g class="sparkle" style="animation-delay: 0.3s">
+                        <circle cx="50" cy="95" r="3" fill="#fbbf24" opacity="0.8"/>
+                        <circle cx="40" cy="105" r="2" fill="#fbbf24" opacity="0.6"/>
+                        <circle cx="60" cy="85" r="2.5" fill="#fbbf24" opacity="0.7"/>
+                    </g>
+                    
+                    <!-- Success badge -->
+                    <g class="success-badge">
+                        <circle cx="200" cy="70" r="30" fill="#4ade80" opacity="0.2"/>
+                        <circle cx="200" cy="70" r="20" fill="#4ade80"/>
+                        <path d="M 190 70 L 197 77 L 210 64" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </g>
+                    
+                    <!-- Excitement text -->
+                    <text x="200" y="40" fill="#fbbf24" font-size="18" font-weight="bold" text-anchor="middle" class="celebration-text">
+                        Code Works! 🎉
+                    </text>
+                </svg>
+            </div>
+            <h1>Jeevan Rajendra Prasad</h1>
+            <p class="subtitle">AWS Certified Data Engineer | ML Engineer</p>
+            <p class="description">Data Engineer with 3+ years enterprise experience in cloud migration, ETL architecture, and big data processing. Proven expertise migrating 5000+ tables to Snowflake with zero data loss and 40% performance gains.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <div class="certifications-banner">
+            <h3>🏆 AWS Certifications</h3>
+            <div class="cert-items">
+                <div class="cert-item">
+                    <h4>AWS Certified Data Engineer - Associate (DEA-C01)</h4>
+                    <p>Expertise in designing data pipelines, orchestrating workflows, implementing data security and governance, and optimizing data architectures for performance and cost on AWS</p>
+                </div>
+                <div class="cert-item">
+                    <h4>AWS Certified Machine Learning - Specialty</h4>
+                    <p>Proficiency in building, training, and deploying machine learning models using AWS services including SageMaker, with focus on data engineering for ML workflows</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <ul>
+                    <li>Python (Pandas, NumPy, Scikit-learn)</li>
+                    <li>SQL</li>
+                    <li>Bash</li>
+                    <li>Java</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Cloud Platforms</h3>
+                <ul>
+                    <li>AWS (S3, EC2, Lambda)</li>
+                    <li>AWS RDS & Glue</li>
+                    <li>AWS Kinesis & Redshift</li>
+                    <li>Azure Data Factory</li>
+                    <li>Google Cloud Platform</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Databases</h3>
+                <ul>
+                    <li>Snowflake</li>
+                    <li>PostgreSQL</li>
+                    <li>MySQL</li>
+                    <li>MS SQL Server</li>
+                    <li>MongoDB</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Data Engineering</h3>
+                <ul>
+                    <li>Apache Airflow</li>
+                    <li>ETL/ELT Pipelines</li>
+                    <li>Data Warehousing</li>
+                    <li>Apache Hadoop</li>
+                    <li>Apache Spark</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Tools & Technologies</h3>
+                <ul>
+                    <li>Git/GitHub</li>
+                    <li>Docker & Kubernetes</li>
+                    <li>Tableau & Power BI</li>
+                    <li>REST APIs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">🏥</div>
+                <div class="project-content">
+                    <h3>Pfizer Enterprise Data Migration to Snowflake</h3>
+                    <p>Migrated 5000+ mission-critical database tables from legacy on-premise systems to Snowflake cloud platform ensuring business continuity and data integrity.</p>
+                    <div class="project-highlight">
+                        <strong>Impact:</strong> 40% query performance improvement, reducing critical pharmaceutical report generation from 45 minutes to 12 minutes
+                    </div>
+                    <p>Implemented 100+ automation validation rules with Python scripts ensuring no data loss during migration. Developed Apache Airflow orchestration workflows processing 1M+ records weekly across 15 global clinical research sites.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Snowflake</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">⚽</div>
+                <div class="project-content">
+                    <h3>Sports Analytics Dashboard</h3>
+                    <p>Engineered sophisticated web scraping framework collecting 10,000+ sports statistics from multiple sources enabling comprehensive player and team analysis.</p>
+                    <div class="project-highlight">
+                        <strong>Features:</strong> Real-time data refresh, advanced visualizations, competitive intelligence across multiple sports leagues
+                    </div>
+                    <p>Built data pipeline with daily refresh capabilities for tracking player performance metrics and supporting coaching decisions through interactive dashboards.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">BeautifulSoup</span>
+                        <span class="tech-tag">Selenium</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Tableau</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">🌤️</div>
+                <div class="project-content">
+                    <h3>Real-Time Weather Analytics Pipeline</h3>
+                    <p>Built highly scalable ETL pipeline ingesting weather data from multiple REST APIs into PostgreSQL data warehouse enabling comprehensive climate analysis and forecasting.</p>
+                    <div class="project-highlight">
+                        <strong>Reliability:</strong> 99.9% data availability and accuracy through automated refresh processes and quality validation checks
+                    </div>
+                    <p>Created interactive Tableau dashboards visualizing weather patterns, trends, and anomalies across 50+ cities with comprehensive error handling and retry logic.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">AWS S3</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Airflow</span>
+                        <span class="tech-tag">REST APIs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <h3>Application Development Associate (ETL Developer)</h3>
+                <div class="company">Accenture Solutions Pvt. Ltd., Bangalore, India</div>
+                <div class="date">July 2022 - January 2024</div>
+                <ul>
+                    <li>Migrated 5000+ Pfizer tables to Snowflake with nearly negligible data loss, reducing query time from 45 to 12 minutes</li>
+                    <li>Orchestrated Airflow ETL pipelines processing 1M+ records weekly across many global sites</li>
+                    <li>Reduced ETL failures by 35% through optimization of 10GB+ genomic datasets</li>
+                    <li>Led Agile teams of 8+ across 4 time zones; received "Brightest Beginner Award"</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Application Development Analyst (QA Tester)</h3>
+                <div class="company">Accenture Solutions Pvt. Ltd., Bangalore, India</div>
+                <div class="date">January 2022 - June 2022</div>
+                <ul>
+                    <li>Resolved 200+ backend integration issues using SQL optimization and Bash scripting</li>
+                    <li>Designed QA frameworks reducing production errors by 40%</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Data Science Intern</h3>
+                <div class="company">Kore.ai, Bangalore, India</div>
+                <div class="date">January 2020 - June 2020</div>
+                <ul>
+                    <li>Applied machine learning algorithms to business datasets</li>
+                    <li>Developed data preprocessing workflows using Python</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>I'm a passionate Data Engineer with over 3 years of enterprise experience specializing in cloud migration, ETL architecture, and big data processing. Currently pursuing my Master's in Data Science at the University of Massachusetts Dartmouth, I combine hands-on industry experience with cutting-edge academic knowledge.</p>
+            
+            <p>My professional journey includes leading critical data migration projects at Accenture for global pharmaceutical companies, where I successfully migrated 5000+ tables to Snowflake achieving 40% performance improvements. I hold AWS certifications in Data Engineering and Machine Learning, validating my expertise in designing scalable data pipelines and implementing ML workflows on cloud platforms.</p>
+            
+            <p>I thrive on solving complex data challenges and building robust systems that drive business value. Whether it's optimizing ETL pipelines, implementing data quality frameworks, or deploying machine learning models, I approach each project with a focus on performance, scalability, and reliability.</p>
+
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>🎓 University of Massachusetts Dartmouth</h3>
+                    <div class="degree">Master of Science in Data Science</div>
+                    <div class="date">January 2024 - December 2025</div>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem;">Machine Learning, Big Data Technologies, Database Systems, Data Privacy and Security</p>
+                </div>
+                <div class="education-card">
+                    <h3>🎓 Sree Vidyanikethan Engineering College</h3>
+                    <div class="degree">Bachelor of Technology in Mechanical Engineering</div>
+                    <div class="date">June 2017 - July 2021</div>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem;">Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">I'm always interested in hearing about new opportunities and collaborations. Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:jrajendraprasad@umassd.edu" class="contact-link">
+                    <div class="contact-icon">📧</div>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/jeevanrajendraprasad" class="contact-link" target="_blank">
+                    <div class="contact-icon">💼</div>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="tel:+15085092586" class="contact-link">
+                    <div class="contact-icon">📱</div>
+                    <span>Phone</span>
+                </a>
+                <div class="contact-link">
+                    <div class="contact-icon">📍</div>
+                    <span>Boston, MA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Jeevan Rajendra Prasad. Built with passion for data engineering and machine learning.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                nav.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+            }
+        });
+    </script>
+</body>
+</html>
